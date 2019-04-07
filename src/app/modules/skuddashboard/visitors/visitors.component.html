@@ -1,0 +1,55 @@
+
+  <div >
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="left">На территории</th>
+          <th>Сотрудники</th>
+          <th>Гости</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="left">Здание 1-3 АС</td>
+          <td class="staff">{{(realOnTerritoryAC$ | async)?.empReal}}</td>
+          <td class="guest">{{(realOnTerritoryAC$ | async)?.guestReal}}</td>
+        </tr>
+        <tr>
+          <td class="left">Здание 1-3 АЩ</td>
+          <td class="staff">{{(realOnTerritoryAS$ | async)?.empReal}}</td>
+          <td class="guest">{{(realOnTerritoryAS$ | async)?.guestReal}}</td>
+        </tr>
+        <tr>
+          <td class="left">Автомобили</td>
+          <td></td>
+          <td class="guest">{{realCarOnTerritory$ | async}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div >
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="left">За день</th>
+          <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th class="blockicon">
+            <clr-icon shape="history"> </clr-icon>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="left">Сотрудники</td>
+          <td></td>
+          <td class="staff">{{employeePerDay$ | async}}</td>
+        </tr>
+        <tr>
+          <td class="left">Гости</td>
+          <td></td>
+          <td class="guest"> {{guestPerDay$ | async}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

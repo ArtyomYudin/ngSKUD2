@@ -1,0 +1,55 @@
+
+#content {
+  margin: auto;
+  // width: 360px;
+  // max-height: 104px;
+  // background-color: #FFFFFF;
+  // padding: 0px;
+}
+
+.chartPanel {
+  border: 1px solid #485764;
+  border-radius: .125rem;
+  background-color: #22343c;
+  color: #adbbc4;
+  margin: 0;
+  margin-top: 1rem;
+  max-width: 100%;
+  width: 100%;
+}
+
+.chartHeaderPanel{
+  border-bottom: 1px solid #485764;
+  background-color: #1b2a32;
+  font-family: "Metropolis","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  padding-left: 12px;
+}
+
+.chartBodyPanel{
+  // background-color: #22343c;
+  font-family: "Metropolis","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  font-size: 12px;
+  color: #e9ecef;
+}
+
+.mat-expansion-panel-header-title {
+  color: #e9ecef;
+}
+
+.mat-expansion-panel-header-description {
+  color: #e9ecef;
+  display: table !important;
+  text-align: right !important;
+  margin-right: 10px;
+}
+
+::ng-deep .mat-expansion-indicator::after{
+  color: #e9ecef !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 12px !important;
+}

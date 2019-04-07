@@ -1,0 +1,17 @@
+<div>
+  <mat-expansion-panel class="chartPanel" #chartPanel>
+    <mat-expansion-panel-header class="chartHeaderPanel"  [collapsedHeight]="'32px'" [expandedHeight]="'32px'" [style.border-bottom-width] ="(chartPanel.expanded) ? '1px' : '0px'">
+      <mat-panel-title>
+        Посещения за месяц
+      </mat-panel-title>
+      <mat-panel-description>
+        <clr-icon shape="line-chart"></clr-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  
+    <div id="content">
+      <canvas #chart></canvas>
+    </div>
+  
+  </mat-expansion-panel>
+</div>

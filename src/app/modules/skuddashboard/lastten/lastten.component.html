@@ -1,0 +1,60 @@
+<!--
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <clr-datagrid>
+            <clr-dg-column>Event</clr-dg-column>
+          
+            <clr-dg-row *clrDgItems="let item of messageArray" [clrDgItem]="item">
+                <clr-dg-cell>{{item.evData | json}}</clr-dg-cell>
+            </clr-dg-row>
+            <clr-dg-footer>
+                <clr-dg-pagination #pagination [clrDgPageSize]="10">
+                    {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+                    of {{pagination.totalItems}} events
+                </clr-dg-pagination>
+            </clr-dg-footer>
+        </clr-datagrid>
+    </div>
+</div>
+-->
+<div class="clr-row">
+    <div class="clr-col-xl-6 clr-col-lg-12 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
+      <table class="table table-compact">
+          <thead>
+            <tr>
+              <th class="left" colspan="2">Последние 10 входов</th>
+              <th></th>
+              <th class="right-th-icon"><clr-icon shape="download"></clr-icon></th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of (lastEntryArray$ | async)">
+                <td class="left"><div class="photo"><img class="personPhoto" [src]="item.photo | blobToBase64"></div></td>
+                <td class="left">{{item.lname +'&nbsp;'+ item.fname.charAt(0) +'.&nbsp;'+ item.mname.charAt(0)+'.'}}</td>
+                <td class ="lastentry">{{item.tstamp | date:'HH:mm:ss'}}</td>
+                <td class ="lastentry">{{item.apoint_id | buildingName}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="clr-col-xl-6 clr-col-lg-12 clr-col-xl-6 clr-col-md-12 clr-col-sm-12 clr-col-xs-12">
+          <table class="table table-compact">
+            <thead>
+              <tr>
+                <th class="left" colspan="2">Последние 10 выходов</th>
+                <th></th>
+                <th class="right-th-icon"><clr-icon shape="upload"></clr-icon></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of (lastExitArray$ | async)">
+                <td class="left"><div class="photo"><img class="personPhoto" [src]="item.photo | blobToBase64"></div></td>
+                <td class="left">{{item.lname +'&nbsp;'+ item.fname.charAt(0) +'.&nbsp;'+ item.mname.charAt(0)+'.'}}</td>
+                <td class ="lastexit">{{item.tstamp | date:'HH:mm:ss' }}</td>
+                <td class ="lastexit">{{item.apoint_id | buildingName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+</div>

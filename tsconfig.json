@@ -1,16 +1,37 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "plugins": [
+      {
+        // "name": "typescript-tslint-plugin",
+        // "alwaysShowRuleFailuresAsWarnings": false,
+        // "ignoreDefinitionFiles": true,
+        // "configFile": "../tslint.json",
+        // "suppressWhileTypeErrorsPresent": false,
+        // "mockTypeScriptVersion": false
+      }
+    ],
     "baseUrl": "./",
+    "paths": {
+      "core-js/es7/reflect": ["node_modules/core-js/proposals/reflect-metadata"],
+      "@app/*": ["src/app/*"],
+      "@assets/*": ["src/assets/*"],
+      "@models/*": ["src/app/models/*"],
+      "@modules/*": ["src/app/modules/*"],
+      "@pipe/*": ["src/app/pipe/*"],
+      "@services/*": ["src/app/services/*"],
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es5",
+    "target": "es6",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "removeComments": true,
     "typeRoots": [
       "node_modules/@types"
     ],

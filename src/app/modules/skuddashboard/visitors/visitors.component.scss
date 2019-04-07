@@ -1,0 +1,33 @@
+.table td.guest{
+  color: #AADB1E;
+}
+.table td.staff{
+  color: #49AFD9;
+}
+/*
+.table th {
+  vertical-align: middle;
+}
+*/
+.table th {
+  font-size: .5rem;
+}
+
+.table td.left, .table th.left {
+  padding-left: 0.5rem;
+}
+
+.table td.totalVisit{
+  background-color: #1B2A32;
+  color: #e9ecef;
+  font-size: .5rem;
+}
+.table th.blockicon {
+  padding-top: 0;
+  padding-bottom: 0;
+  vertical-align: middle;
+}
+clr-icon {
+  height: 22px;
+  width: 22px;
+}

@@ -1,0 +1,62 @@
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { map, retryWhen, delay, tap } from 'rxjs/operators';
+
+import { WebsocketService } from '@services/websocket.service';
+
+const API_URL = 'ws://localhost:3030/';
+
+export interface IMessage {
+  event: string;
+  value: string;
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SkudEventsService {
+
+  // public messages: Subject<IMessage>;
+  public messages: Subject<any>  = new Subject<any>();
+
+  constructor(private wsService: WebsocketService) {
+    /*this.messages =  wsService.connect(API_URL)
+    .pipe(
+      retryWhen(errors =>
+        errors.pipe(
+          tap(err => {
+            console.error('Got error', err);
+          }),
+          delay(1000)
+        )
+      ),
+      map((response: MessageEvent): IMessage => {
+        const data = JSON.parse(response.data);
+        return {
+          event: data.event,
+          value: data.value,
+        };
+      })
+    ) as Subject<IMessage>;
+  }
+  */
+  }
+  public connect() {
+    this.messages = this.wsService
+      .connect(API_URL)
+      .pipe(
+        map((response: MessageEvent): any => {
+          return JSON.parse(response.data);
+      })
+      ) as Subject<any>;
+  }
+
+  public close() {
+    this.wsService.close();
+  }
+
+  public reconnect() {
+    this.close();
+    this.connect();
+  }
+}

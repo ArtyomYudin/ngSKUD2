@@ -1,0 +1,19 @@
+<div>
+  <table class="table table-compact">
+    <thead>
+      <tr>
+        <th class="left" colspan="2">Сотрудники УС</th>
+        <th></th>
+        <th class="right-th-icon"><clr-icon shape="bullet-list"></clr-icon></th>     
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of (employeeArray$ | async)">
+          <td class="left"><div class="photo"><img class="personPhoto" [src]="item.photo | blobToBase64"></div></td>
+          <td class="left">{{item.lname +'&nbsp;'+ item.fname.charAt(0) +'.&nbsp;'+ item.mname.charAt(0)+'.'}}</td>
+          <td class="employee">{{item.tstamp | date:'HH:mm:ss'}}</td>
+          <td class="employee">{{item.apoint}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,49 @@
+<!--
+<div>
+    <form class="search" [formGroup]="searchEmp" (ngSubmit)="onSubmit()">
+      <input type="text" formControlName="emp" placeholder="Поиск сотрудника"  />
+       <clr-icon shape="search"></clr-icon>
+    </form>
+</div>
+-->
+
+<div >
+    <table class="table table-compact" [style.border-bottom-width] ="(currentEmp || error) ? '1px' : '0px'">
+      <thead>
+        <tr>
+          <th class="left" colspan="3" >
+            <div>
+              <form class="search-emp-form" [formGroup]="searchEmp" autocomplete="off"> <!--(ngSubmit)="onSubmit()"-->
+                <input class="search-emp-input" type="text" formControlName="emp" placeholder="Поиск сотрудника" [matAutocomplete]="auto" 
+                      (ngModelChange)="onChanges()"/>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <!--<mat-option *ngIf="isLoading" class="is-loading"><span class="spinner spinner-sm"></span></mat-option>-->
+                    <!--<ng-container *ngIf="!isLoading">-->
+                      <mat-option (onSelectionChange)="onSubmit(user.id)" *ngFor="let user of filteredEmployee" [value]="user" [ngClass]="{'hide-autocomplete': !showAutocomplete}">
+                        <span>{{ user.lastName }}&nbsp;{{ user.firstName }}&nbsp;{{ user.middleName }}</span>
+                      </mat-option>
+                    <!--</ng-container>-->
+                  </mat-autocomplete>
+              </form>
+          </div>
+          </th>
+          <th class="right-th-icon">
+              <clr-icon shape="search"></clr-icon>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="error">
+          <div>
+            Поиск не дал результатов
+          </div>
+        </tr>
+        <tr *ngIf="currentEmp">
+          <td class="left"><div class="photo"><img class="personPhoto" [src]="currentEmp.photo | blobToBase64"></div></td>
+          <td class="left">{{currentEmp.lastName +'&nbsp;'+ currentEmp.firstName.charAt(0) +'.&nbsp;' + currentEmp.middleName.charAt(0)+'.'}}</td>
+          <td class="employee">{{currentEmp.timeStamp | date:'dd MMMM HH:mm:ss'}}</td>
+          <td class="employee">{{currentEmp.apointName}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

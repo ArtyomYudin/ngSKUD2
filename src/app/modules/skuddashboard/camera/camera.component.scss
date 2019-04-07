@@ -1,0 +1,27 @@
+.right-th-icon {
+  text-align: right;
+}
+.table th {
+  font-size: .5rem;
+  vertical-align: middle;
+}
+
+.table th.left {
+  padding-left: 0.5rem;
+}
+
+.table td.camera {
+  padding: 0px 0px 0px 0px;
+}
+
+clr-icon {
+  height: 22px;
+  width: 22px;
+}
+
+#video-canvas {
+  width: 100%;
+  min-height: 100%;
+  // border-bottom-right-radius: .125rem;
+  border-bottom-left-radius: .125rem;
+}
