@@ -36,12 +36,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
+            "localize": [
+              "ru"
+            ],
             "outputPath": "dist/ngSKUD2",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "i18nLocale": "ru",
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -52,6 +55,8 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js",
+              "node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
               "./node_modules/@webcomponents/custom-elements/custom-elements.min.js",
               "./node_modules/@clr/icons/clr-icons.min.js"
             ],
@@ -79,6 +84,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }

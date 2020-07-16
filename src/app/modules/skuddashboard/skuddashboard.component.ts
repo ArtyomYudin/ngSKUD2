@@ -13,11 +13,15 @@ import { WebsocketService } from '@app/services/websocket.service';
 export class SkudDashboardComponent implements OnInit, OnDestroy {
   public initDashboard = false;
   public isConnected: boolean;
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private ngUnsubscribe$: Subject<any> = new Subject();
 
   constructor(private wsService: WebsocketService) {
     this.wsService.status
-      .pipe(takeUntil(this.ngUnsubscribe), share(), distinctUntilChanged())
+      .pipe(
+        share(),
+        distinctUntilChanged(),
+        takeUntil(this.ngUnsubscribe$),
+        )
       .subscribe(
       isConnected => {
          this.isConnected = isConnected;
@@ -29,7 +33,7 @@ export class SkudDashboardComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }

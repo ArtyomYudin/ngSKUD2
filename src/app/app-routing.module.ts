@@ -5,10 +5,12 @@ import { AuthGuard } from '@services/auth.guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/skud', pathMatch: 'full' },
-  { path: 'skud', loadChildren: './modules/skuddashboard/skuddashboard.module#SkudDashboardModule',
+  { path: 'skud', loadChildren: () => import('./modules/skuddashboard/skuddashboard.module').then(m => m.SkudDashboardModule),
     canActivate: [AuthGuard],  data: {key: 'cached'} },
   // { path: 'monitoring', component: AboutComponent, canActivate: [AuthGuard] },
-  { path: 'login', loadChildren: './modules/login/login.module#LoginModule' },
+  { path: 'login', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) },
+  { path: 'config', loadChildren: () => import('./modules/config/config.module').then(m => m.ConfigModule),
+    canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' },
 ];
 

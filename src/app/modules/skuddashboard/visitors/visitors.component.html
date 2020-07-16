@@ -22,7 +22,7 @@
         <tr>
           <td class="left">Автомобили</td>
           <td></td>
-          <td class="guest">{{realCarOnTerritory$ | async}}</td>
+          <td class="car">{{realCarOnTerritory$ | async}}</td>
         </tr>
       </tbody>
     </table>
@@ -49,6 +49,11 @@
           <td class="left">Гости</td>
           <td></td>
           <td class="guest"> {{guestPerDay$ | async}}</td>
+        </tr>
+        <tr>
+          <td class="left">Автомобили</td>
+          <td></td>
+          <td class="car">{{carPerDay$ | async}}</td>
         </tr>
       </tbody>
     </table>

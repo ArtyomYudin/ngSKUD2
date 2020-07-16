@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { SplitlastPipe } from '@pipe/splitlast.pipe';
 import { Blobtobase64Pipe } from '@pipe/blobtobase64.pipe';
 import { BuildingnamePipe } from '@pipe/buildingname.pipe';
+import { DatetimeformatPipe } from '@pipe/datetimeformat.pipe';
 
 import { SkudDashboardComponent } from '@modules/skuddashboard/skuddashboard.component';
 import { CameraComponent } from '@modules/skuddashboard/camera/camera.component';
@@ -28,7 +29,7 @@ const routing = RouterModule.forChild([
 
 @NgModule({
   declarations: [
-    SplitlastPipe, Blobtobase64Pipe, BuildingnamePipe,
+    SplitlastPipe, Blobtobase64Pipe, BuildingnamePipe, DatetimeformatPipe,
     SkudDashboardComponent, CameraComponent, EmployeeComponent,
     EmployeeSearchComponent, LasttenComponent, VisitorsComponent,
     VisitorsChartComponent],

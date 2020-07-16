@@ -1,0 +1,24 @@
+<clr-datagrid >
+  <clr-dg-column>ID пользователя</clr-dg-column>
+  <clr-dg-column  [clrDgField]="'lastName'" [clrDgSortOrder]="descSort">Фамилия</clr-dg-column>
+  <clr-dg-column>Имя</clr-dg-column>
+  <clr-dg-column>Отчество</clr-dg-column>
+
+  <clr-dg-placeholder>Мы не смогли найти пользователей!</clr-dg-placeholder>
+
+  <clr-dg-row *clrDgItems="let user of ( emp$| async )?.results" [clrDgItem]="user">
+    <clr-dg-cell>{{user.id}}</clr-dg-cell>
+    <clr-dg-cell>{{user.lastName}}</clr-dg-cell>
+    <clr-dg-cell>{{user.firstName}}</clr-dg-cell>
+    <clr-dg-cell>{{user.middleName}}</clr-dg-cell>
+  </clr-dg-row>
+
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Users per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{pagination.totalItems}} users
+    </clr-dg-pagination>
+  </clr-dg-footer>
+
+</clr-datagrid>

@@ -13,7 +13,7 @@ import { AppComponent } from '@app/app.component';
 import { UiModule } from '@modules/ui/ui.module';
 import { WebsocketService } from '@services/websocket.service';
 import { RouteReuseStrategy } from '@angular/router';
-import { CustomReuseStrategy } from './custom-reuse-strategy';
+import { CustomReuseStrategy } from '@app/custom-reuse-strategy';
 
 export function jwtTokenGetter() {
   if (localStorage.getItem('ngSKUD')) {

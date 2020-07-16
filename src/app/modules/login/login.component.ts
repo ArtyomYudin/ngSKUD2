@@ -17,7 +17,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   public loading = false;
   public error = '';
   public loginForm: FormGroup;
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private ngUnsubscribe$: Subject<any> = new Subject();
   private returnUrl: string;
 
   constructor(
@@ -49,8 +49,8 @@ export class LoginComponent implements OnDestroy, OnInit {
   get f() { return this.loginForm.controls; }
 
   public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 
   public onSubmit() {
@@ -65,7 +65,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     this.authenticationService.login(this.f.email.value, this.f.password.value)
           .pipe(
             first(),
-            takeUntil(this.ngUnsubscribe))
+            takeUntil(this.ngUnsubscribe$))
           .subscribe(
               () => {
                 this.router.navigate([this.returnUrl]);

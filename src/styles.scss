@@ -4,11 +4,12 @@
 
 body {
   background-color: #1B2A32;
-  height: 100%;
+  // height: 100%;
 }
 .main-container .content-container .content-area {
   padding: 0rem 1rem 1rem 1rem;
   padding-bottom: 0;
+  height: calc(100vh - 4rem);
 }
 
 .app-loading {

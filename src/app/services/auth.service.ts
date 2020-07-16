@@ -10,13 +10,13 @@ import { AuthUser } from '@models/authuser.model';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  public currentUser: Observable<AuthUser>;
-  private currentUserSubject: BehaviorSubject<AuthUser>;
+  public currentUser$: Observable<AuthUser>;
+  private currentUserSubject$: BehaviorSubject<AuthUser>;
 
   constructor(private http: HttpClient,
               private jwtHelper: JwtHelperService) {
-    this.currentUserSubject = new BehaviorSubject<AuthUser>(JSON.parse(localStorage.getItem('ngSKUD')));
-    this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUserSubject$ = new BehaviorSubject<AuthUser>(JSON.parse(localStorage.getItem('ngSKUD')));
+    this.currentUser$ = this.currentUserSubject$.asObservable();
   }
 
   // public get currentUserValue(): AuthUser {
@@ -35,7 +35,7 @@ export class AuthenticationService {
               if (authUser && authUser.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('ngSKUD', JSON.stringify(authUser));
-                this.currentUserSubject.next(authUser);
+                this.currentUserSubject$.next(authUser);
               }
               return authUser;
             }));
@@ -44,7 +44,7 @@ export class AuthenticationService {
   public logout() {
         // remove user from local storage to log user out
     localStorage.removeItem('ngSKUD');
-    this.currentUserSubject.next(null);
+    this.currentUserSubject$.next(null);
   }
 
   public isAuthenticated(): boolean {

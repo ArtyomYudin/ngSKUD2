@@ -1,8 +1,10 @@
-import { RouteReuseStrategy, DetachedRouteHandle } from '@angular/router/src/route_reuse_strategy';
-import { ActivatedRouteSnapshot } from '@angular/router/src/router_state';
+import { RouteReuseStrategy, DetachedRouteHandle } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class CustomReuseStrategy implements RouteReuseStrategy {
-  private routesToCache: string[] = ['cached'];
+  private routesToCache: string[] = ['cached', 'cached1'];
   private storedRouteHandles = new Map<string, DetachedRouteHandle>();
 
   // Decides if the route should be stored

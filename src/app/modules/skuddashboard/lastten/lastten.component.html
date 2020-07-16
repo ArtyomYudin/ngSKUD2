@@ -32,7 +32,7 @@
             <tr *ngFor="let item of (lastEntryArray$ | async)">
                 <td class="left"><div class="photo"><img class="personPhoto" [src]="item.photo | blobToBase64"></div></td>
                 <td class="left">{{item.lname +'&nbsp;'+ item.fname.charAt(0) +'.&nbsp;'+ item.mname.charAt(0)+'.'}}</td>
-                <td class ="lastentry">{{item.tstamp | date:'HH:mm:ss'}}</td>
+                <td class ="lastentry">{{item.tstamp | dateTimeFormat}}</td>
                 <td class ="lastentry">{{item.apoint_id | buildingName}}</td>
             </tr>
           </tbody>
@@ -51,7 +51,7 @@
               <tr *ngFor="let item of (lastExitArray$ | async)">
                 <td class="left"><div class="photo"><img class="personPhoto" [src]="item.photo | blobToBase64"></div></td>
                 <td class="left">{{item.lname +'&nbsp;'+ item.fname.charAt(0) +'.&nbsp;'+ item.mname.charAt(0)+'.'}}</td>
-                <td class ="lastexit">{{item.tstamp | date:'HH:mm:ss' }}</td>
+                <td class ="lastexit">{{item.tstamp | dateTimeFormat }}</td>
                 <td class ="lastexit">{{item.apoint_id | buildingName}}</td>
               </tr>
             </tbody>

@@ -8,18 +8,18 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class SessionCheckService {
 
-  public isActivate: BehaviorSubject<any>;
-  public isActivateStatus: Observable<any>;
+  public isActivate$: BehaviorSubject<any>;
+  public isActivateStatus$: Observable<any>;
 
   constructor(private jwtHelper: JwtHelperService) {
-    this.isActivate = new BehaviorSubject<any>(localStorage.getItem('ngSKUD') ? true : false);
-    this.isActivateStatus = this.isActivate.asObservable()
+    this.isActivate$ = new BehaviorSubject<any>(localStorage.getItem('ngSKUD') ? true : false);
+    this.isActivateStatus$ = this.isActivate$.asObservable()
         .pipe(tap(this.validate.bind(this)));
   }
 
   private validate() {
     const validateInterval = setInterval(() => {
-      this.isActivate.next(localStorage.getItem('ngSKUD') ? !this.jwtHelper.isTokenExpired() : null);
+      this.isActivate$.next(localStorage.getItem('ngSKUD') ? !this.jwtHelper.isTokenExpired() : null);
     // tslint:disable-next-line:align
     }, 60000);
     return () => {

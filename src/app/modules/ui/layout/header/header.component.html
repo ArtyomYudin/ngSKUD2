@@ -33,14 +33,14 @@
       <!-- <a class="nav-link active" href="#"></a> -->
     </li>
     <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/', 'monitoring']">Мониторинг оборудования</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/', 'monitoring']" *ngIf="isAdmin()">Мониторинг оборудования</a>
       <!-- <a class="nav-link" href="#">Мониторинг оборудования</a> -->
     </li>
     <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/', '']">IP</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/', '']" *ngIf="isAdmin()">IP</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/', '']" *ngIf="isAdmin()">Пользователи</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/', 'config']" *ngIf="isAdmin()">Настройки системы</a>
     </li>
   </ul>
 </nav>

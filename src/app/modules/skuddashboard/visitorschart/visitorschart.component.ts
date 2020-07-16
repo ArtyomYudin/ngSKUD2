@@ -13,15 +13,16 @@ import { ChartsService } from '@services/charts.service';
 })
 
 export class VisitorsChartComponent implements OnDestroy, OnInit {
-  @ViewChild('chart') public refChart: ElementRef;
+  @ViewChild('chart', { static: true }) public refChart: ElementRef;
   public chartData: any;
 
   // public employeePerDay$: Observable<number>;
   // public guestPerDay$: Observable<number>;
 
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private ngUnsubscribe$: Subject<any> = new Subject();
   private employeeDay: any = [];
   private guestCount: any = [];
+  private carCount: any = [];
   private employeeCount: any = [];
   private guestChart: any;
 
@@ -41,7 +42,7 @@ export class VisitorsChartComponent implements OnDestroy, OnInit {
     */
 
     this.wsService.on(Event.EV_GUEST_PER_DAY)
-      .pipe(takeUntil(this.ngUnsubscribe))
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {
         this.changeChartData(this.guestChart);
       });
@@ -52,14 +53,23 @@ export class VisitorsChartComponent implements OnDestroy, OnInit {
   }
 
   public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 
   private initChart(): void {
     this.chartData = {
       labels: this.employeeDay,
       datasets: [{
+        label: 'Сотрудники',
+        data: this.employeeCount,
+        borderColor: ['#49AFD9'],
+        // backgroundColor: ['#49AFD9'],
+        pointHoverBackgroundColor: '#49AFD9',
+        fill: false,
+        borderWidth: 1,
+      },
+      {
         label: 'Гости',
         data: this.guestCount,
         borderColor: ['#AADB1E'],
@@ -69,11 +79,11 @@ export class VisitorsChartComponent implements OnDestroy, OnInit {
         borderWidth: 1,
       },
       {
-        label: 'Сотрудники',
-        data: this.employeeCount,
-        borderColor: ['#49AFD9'],
-        // backgroundColor: ['#49AFD9'],
-        pointHoverBackgroundColor: '#49AFD9',
+        label: 'Автомобили',
+        data: this.carCount,
+        borderColor: ['#BE90D6'],
+        // backgroundColor: ['#AADB1E'],
+        pointHoverBackgroundColor: '#BE90D6',
         fill: false,
         borderWidth: 1,
       }],
@@ -124,7 +134,7 @@ export class VisitorsChartComponent implements OnDestroy, OnInit {
 
   private getCartValues(): void {
     this.chartsService.getChartData('empAndGuest')
-      .pipe(takeUntil(this.ngUnsubscribe))
+      .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(x => {
         const resultArray = Object.keys(x).map(i => (x as any)[i]);
         // console.log(resultArray);
@@ -135,6 +145,9 @@ export class VisitorsChartComponent implements OnDestroy, OnInit {
         });
         resultArray[1].forEach((y: any) => {
           this.guestCount.push(y.yAxes);
+        });
+        resultArray[2].forEach((y: any) => {
+          this.carCount.push(y.yAxes);
         });
         this.guestChart.update();
       });

@@ -1,6 +1,10 @@
 {
   "compileOnSave": false,
+  // "angularCompilerOptions": {
+  //   "enableIvy": "ngtsc"
+  // } ,
   "compilerOptions": {
+    "downlevelIteration": true,
     "plugins": [
       {
         // "name": "typescript-tslint-plugin",
@@ -27,8 +31,8 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2015",
+    "module": "esnext",
     "noImplicitAny": true,
     "noEmitOnError": true,
     "removeComments": true,

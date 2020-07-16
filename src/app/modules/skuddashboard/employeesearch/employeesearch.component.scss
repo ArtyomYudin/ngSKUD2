@@ -58,6 +58,19 @@
   width: 100%;
 }
 
+::ng-deep .clr-form-control {
+  margin-top: 0rem;
+}
+
+::ng-deep .clr-input {
+  border-bottom: none;
+  font-family: "Metropolis","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  font-size: 12px;
+}
+
+::ng-deep .clr-control-container {
+  width: 100%;
+}
 
 clr-icon {
   height: 22px;

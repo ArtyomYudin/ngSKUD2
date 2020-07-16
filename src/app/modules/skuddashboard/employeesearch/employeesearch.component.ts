@@ -15,6 +15,7 @@ import { WebsocketService } from '@services/websocket.service';
 
 import { Event } from '@services/websocket.service.event';
 import { filter } from 'rxjs/operators';
+import { SubscriptionLike } from 'rxjs/internal/types';
 
 @Component({
   selector: 'app-employeesearch',
@@ -24,15 +25,15 @@ import { filter } from 'rxjs/operators';
 export class EmployeeSearchComponent implements OnDestroy, OnInit {
   public currentEmp: Employee;
   public error = '';
-  // emptyEmp = false;
   public isLoading = false;
-  public empValue = '';
+  // public empValue = '';
   public filteredEmployee: Employee[] = [];
   public showAutocomplete = false;
   public searchEmp: FormGroup;
 
-  private ngUnsubscribe: Subject<any> = new Subject();
-  private ngUnsubscribeEmp: Subject<any> = new Subject();
+  private ngUnsubscribe$: Subject<any> = new Subject();
+  // private ngUnsubscribeEmp$: Subject<any> = new Subject();
+  private searchSubscribe$: SubscriptionLike;
 
   constructor(private formBuilder: FormBuilder,
               private employeeService: EmployeeService,
@@ -51,22 +52,23 @@ export class EmployeeSearchComponent implements OnDestroy, OnInit {
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
-        takeUntil(this.ngUnsubscribe),
        // tap(() => this.showAutocomplete = false),
         switchMap(value => value.length >= 3 ? this.employeeService.getAllEmp({ name: value }, 1)
         .pipe(
           finalize(() => this.showAutocomplete = true),
           ) : [],
         ),
+        takeUntil(this.ngUnsubscribe$)
       )
       .subscribe(users => this.filteredEmployee = users.results);
   }
 
   public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-    this.ngUnsubscribeEmp.next();
-    this.ngUnsubscribeEmp.complete();
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
+    // this.ngUnsubscribeEmp$.next();
+    // this.ngUnsubscribeEmp$.complete();
+    if (this.searchSubscribe$) this.searchSubscribe$.unsubscribe();
   }
 
   get f() { return this.searchEmp.controls; }
@@ -75,10 +77,12 @@ export class EmployeeSearchComponent implements OnDestroy, OnInit {
     if (this.searchEmp.invalid) {
       return;
     }
+    if (this.searchSubscribe$) this.searchSubscribe$.unsubscribe();
+
     this.employeeService.getFindEmp(id)
               .pipe(
                 first(),
-                takeUntil(this.ngUnsubscribe))
+                takeUntil(this.ngUnsubscribe$))
               .subscribe(x => {
                     this.currentEmp = x;
                     this.error = null;
@@ -86,10 +90,11 @@ export class EmployeeSearchComponent implements OnDestroy, OnInit {
                     /**
                      *  сделать подписку на конкретного пользователя для одновления  результата поиска
                      */
-                    this.wsService.on<Employee>(Event.EV_EMPLOYEE)
+                    this.searchSubscribe$ = this.wsService.on<Employee>(Event.EV_EMPLOYEE)
                       .pipe(
-                        takeUntil(this.ngUnsubscribeEmp),
                         filter(data => data.id === id),
+                        // takeUntil(this.ngUnsubscribeEmp$),
+                        // takeWhile(() => this.searchFlag)
                         )
                       .subscribe(data => this.currentEmp = data);
                   }, error => {
@@ -102,15 +107,16 @@ export class EmployeeSearchComponent implements OnDestroy, OnInit {
   public onChanges() {
     this.searchEmp.get('emp').valueChanges
     .pipe(
-      takeUntil(this.ngUnsubscribe))
+      takeUntil(this.ngUnsubscribe$))
     .subscribe(value => {
-      this.empValue = value;
+      // this.empValue = value;
       if (!value) {
         this.currentEmp = null;
         this.error = null;
         this.showAutocomplete = false;
-        this.ngUnsubscribeEmp.next();
-        this.ngUnsubscribeEmp.complete();
+        // this.ngUnsubscribeEmp$.next();
+        // this.ngUnsubscribeEmp$.complete();
+        if (this.searchSubscribe$) this.searchSubscribe$.unsubscribe();
       }
     });
   }

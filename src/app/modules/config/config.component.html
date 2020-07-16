@@ -1,0 +1,23 @@
+<div class="content-container config">
+  <div class="content-area">
+      <router-outlet></router-outlet>
+  </div>
+  <clr-vertical-nav [clrVerticalNavCollapsible]="true">
+    <a clrVerticalNavLink [routerLink]="['/config', 'skud']" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
+        Настройки СКУД
+    </a>
+    <a clrVerticalNavLink [routerLink]="['/config', '']" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="bolt"></clr-icon>
+        Настройки Zabbix
+    </a>
+    <a clrVerticalNavLink [routerLink]="['/config', '']" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="sad-face"></clr-icon>
+        Настройки 
+    </a>
+    <a clrVerticalNavLink [routerLink]="['/config', '']" routerLinkActive="active">
+        <clr-icon clrVerticalNavIcon shape="bug"></clr-icon>
+        Пользователи системы
+    </a>
+</clr-vertical-nav>
+</div>

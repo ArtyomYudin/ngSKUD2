@@ -21,15 +21,15 @@ export class HeaderComponent implements OnDestroy, OnInit {
   public clock = interval(1000).pipe(
     map(() =>  new Date()));
 
-  private ngUnsubscribe: Subject<any> = new Subject();
+  private ngUnsubscribe$: Subject<any> = new Subject();
 
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     // private sessionCheckService: SessionCheckService,
     ) {
-    this.authenticationService.currentUser
-        .pipe(takeUntil(this.ngUnsubscribe))
+    this.authenticationService.currentUser$
+        .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(x => this.currentUser = x);
     // this.sessionCheckService.isActivateStatus
     //     .pipe(takeUntil(this.ngUnsubscribe))
@@ -44,8 +44,8 @@ export class HeaderComponent implements OnDestroy, OnInit {
   }
 
   public ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 
   public onLogout() {

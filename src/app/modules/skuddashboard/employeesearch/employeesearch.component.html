@@ -14,8 +14,10 @@
           <th class="left" colspan="3" >
             <div>
               <form class="search-emp-form" [formGroup]="searchEmp" autocomplete="off"> <!--(ngSubmit)="onSubmit()"-->
-                <input class="search-emp-input" type="text" formControlName="emp" placeholder="Поиск сотрудника" [matAutocomplete]="auto" 
+                <clr-input-container>
+                  <input clrInput  type="text" formControlName="emp" placeholder="Поиск сотрудника" [matAutocomplete]="auto" 
                       (ngModelChange)="onChanges()"/>
+                </clr-input-container>
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                     <!--<mat-option *ngIf="isLoading" class="is-loading"><span class="spinner spinner-sm"></span></mat-option>-->
                     <!--<ng-container *ngIf="!isLoading">-->
@@ -41,7 +43,7 @@
         <tr *ngIf="currentEmp">
           <td class="left"><div class="photo"><img class="personPhoto" [src]="currentEmp.photo | blobToBase64"></div></td>
           <td class="left">{{currentEmp.lastName +'&nbsp;'+ currentEmp.firstName.charAt(0) +'.&nbsp;' + currentEmp.middleName.charAt(0)+'.'}}</td>
-          <td class="employee">{{currentEmp.timeStamp | date:'dd MMMM HH:mm:ss'}}</td>
+          <td class="employee">{{currentEmp.timeStamp | dateTimeFormat :'dd MMMM HH:mm:ss'}}</td>
           <td class="employee">{{currentEmp.apointName}}</td>
         </tr>
       </tbody>
